@@ -35,6 +35,26 @@ class FormBuilder
         return $this;
     }
 
+    /**
+     * params $event Event to be sent.
+     */
+    public function upload(string $label = null, string $model, string $class = null, string $path, string $disk = 'local', array $options = [])
+    {
+        $label = $label ?? $model;
+
+        $this->fields[] = [
+            "type" => "file",
+            "model" => $model,
+            "label" => $label,
+            "class" => $class,
+            "path" => $path,
+            "disk" => $disk,
+            "options" => $options
+        ];
+
+        return $this;
+    }
+
     public function addSelect($label = null, $model = '', $class = null, array $choices = [], array $options = [])
     {
         array_unshift($choices, ["value" => null, "name" => "Select"]);
@@ -42,6 +62,38 @@ class FormBuilder
 
         $this->fields[] = [
             "type" => "select",
+            "model" => $model,
+            "label" => $label,
+            "class" => $class,
+            "choices" => $choices,
+            "options" => $options
+        ];
+
+        return $this;
+    }
+
+    public function addCheckbox($label = null, $model = '', $class = null, array $choices = [], array $options = [])
+    {
+        $label = $label ?? $model;
+
+        $this->fields[] = [
+            "type" => "check",
+            "model" => $model,
+            "label" => $label,
+            "class" => $class,
+            "choices" => $choices,
+            "options" => $options
+        ];
+
+        return $this;
+    }
+
+    public function addRadio($label = null, $model = '', $class = null, array $choices = [], array $options = [])
+    {
+        $label = $label ?? $model;
+
+        $this->fields[] = [
+            "type" => "radio",
             "model" => $model,
             "label" => $label,
             "class" => $class,
